@@ -3,76 +3,109 @@ import SectionTitle from "@/components/SectionTitle";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 px-4">
-      <div className="max-w-4xl mx-auto">
+    <section id="about" className="py-20 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
         <SectionTitle>About Me</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-lg mb-4">
-              After 5 years in customer relations (notably at OVHcloud), I discovered a true passion for web development. 
-              This field combines creativity, logic, and continuous learning — everything that drives me to grow every day.
-            </p>
-            <p className="text-lg mb-6">
-              I am currently in professional retraining for a Bac+3/4 in Full Stack Development and actively seeking an 
-              internship or apprenticeship starting September 2025.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-6">
-              <div className="flex flex-col items-center p-4 border rounded-lg">
-                <div className="text-primary text-2xl font-bold">Curiosity</div>
-                <p className="text-center text-muted-foreground">Always exploring new technologies</p>
-              </div>
-              <div className="flex flex-col items-center p-4 border rounded-lg">
-                <div className="text-primary text-2xl font-bold">Detail</div>
-                <p className="text-center text-muted-foreground">Attention to every detail</p>
-              </div>
-              <div className="flex flex-col items-center p-4 border rounded-lg">
-                <div className="text-primary text-2xl font-bold">Teamwork</div>
-                <p className="text-center text-muted-foreground">Collaborative problem-solver</p>
-              </div>
-              <div className="flex flex-col items-center p-4 border rounded-lg">
-                <div className="text-primary text-2xl font-bold">Autonomy</div>
-                <p className="text-center text-muted-foreground">Self-directed and proactive</p>
-              </div>
-              <div className="flex flex-col items-center p-4 border rounded-lg">
-                <div className="text-primary text-2xl font-bold">Adaptability</div>
-                <p className="text-center text-muted-foreground">Quick to learn and adjust</p>
+        
+        <div className="grid lg:grid-cols-3 gap-12 items-start">
+          {/* Introduction Text */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="prose prose-lg max-w-none">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                After <strong>5 years in customer relations</strong> (notably at OVHcloud), I discovered a true passion for web development. 
+                This field combines creativity, logic, and continuous learning — everything that drives me to grow every day.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                I am currently in professional retraining for a <strong>Bac+3/4 in Full Stack Development</strong> and actively seeking an 
+                internship or apprenticeship starting <strong>September 2025</strong>.
+              </p>
+            </div>
+
+            {/* Soft Skills */}
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Core Values & Skills</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  {
+                    title: "Curiosity",
+                    description: "Always exploring new technologies",
+                    icon: "🔍"
+                  },
+                  {
+                    title: "Attention to Detail",
+                    description: "Precision in every aspect of development",
+                    icon: "🎯"
+                  },
+                  {
+                    title: "Teamwork",
+                    description: "Collaborative problem-solver",
+                    icon: "🤝"
+                  },
+                  {
+                    title: "Autonomy",
+                    description: "Self-directed and proactive",
+                    icon: "🚀"
+                  },
+                  {
+                    title: "Adaptability",
+                    description: "Quick to learn and adjust",
+                    icon: "⚡"
+                  }
+                ].map((skill, index) => (
+                  <div 
+                    key={skill.title}
+                    className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200"
+                  >
+                    <div className="text-2xl mb-2">{skill.icon}</div>
+                    <div className="font-semibold text-gray-900 mb-1">{skill.title}</div>
+                    <p className="text-sm text-gray-600">{skill.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-          <div className="flex justify-center">
-            <div className="relative">
-              <div className="w-full max-w-md p-6 bg-card rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">My Journey</h3>
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">1</div>
-                    <div>
-                      <h4 className="font-medium">Customer Relations</h4>
-                      <p className="text-muted-foreground">5 years at OVHcloud & WeFix</p>
+
+          {/* Journey Timeline */}
+          <div className="lg:col-span-1">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">My Journey</h3>
+              <div className="space-y-6">
+                {[
+                  {
+                    step: "1",
+                    title: "Customer Relations",
+                    description: "5 years at OVHcloud & WeFix",
+                    color: "bg-blue-500"
+                  },
+                  {
+                    step: "2",
+                    title: "Discovery",
+                    description: "Passion for web development",
+                    color: "bg-purple-500"
+                  },
+                  {
+                    step: "3",
+                    title: "Education",
+                    description: "Holberton School Lille",
+                    color: "bg-green-500"
+                  },
+                  {
+                    step: "4",
+                    title: "Growth",
+                    description: "Full-Stack Developer",
+                    color: "bg-orange-500"
+                  }
+                ].map((item, index) => (
+                  <div key={item.step} className="flex items-start gap-4">
+                    <div className={`${item.color} text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0`}>
+                      {item.step}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-sm text-gray-600">{item.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-4">
-                    <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">2</div>
-                    <div>
-                      <h4 className="font-medium">Discovery</h4>
-                      <p className="text-muted-foreground">Passion for web development</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">3</div>
-                    <div>
-                      <h4 className="font-medium">Education</h4>
-                      <p className="text-muted-foreground">Holberton School Lille</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">4</div>
-                    <div>
-                      <h4 className="font-medium">Growth</h4>
-                      <p className="text-muted-foreground">Full-Stack Developer</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
