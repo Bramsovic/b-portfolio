@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Download, ArrowDown, Mail, Linkedin, Github, Twitter } from "lucide-react";
+import { Download, ArrowDown, Mail, Linkedin, Github, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -23,79 +23,107 @@ const Index = () => {
 
   const frontEndSkills = [
     { name: "HTML5", level: 90 },
-    { name: "CSS3", level: 85 },
-    { name: "JavaScript", level: 80 },
+    { name: "CSS3", level: 90 },
+    { name: "JavaScript", level: 85 },
+    { name: "Vue.js", level: 80 },
     { name: "React", level: 75 },
   ];
 
   const backEndSkills = [
-    { name: "Node.js", level: 70 },
-    { name: "Express", level: 65 },
-    { name: "Python", level: 60 },
-    { name: "SQL/NoSQL", level: 55 },
+    { name: "Python", level: 85 },
+    { name: "Flask", level: 80 },
+    { name: "Express.js", level: 75 },
+    { name: "NestJS", level: 70 },
+    { name: "C", level: 65 },
+    { name: "Java", level: 60 },
+    { name: "PHP", level: 60 },
+    { name: "Bash", level: 70 },
+  ];
+
+  const databaseSkills = [
+    { name: "PostgreSQL", level: 80 },
+    { name: "MongoDB", level: 75 },
+    { name: "MySQL", level: 70 },
+    { name: "SQLite", level: 75 },
   ];
 
   const toolsSkills = [
-    { name: "Git", level: 85 },
-    { name: "Docker", level: 60 },
-    { name: "CI/CD", level: 50 },
-    { name: "Agile", level: 70 },
+    { name: "Git", level: 90 },
+    { name: "GitHub", level: 90 },
+    { name: "GitLab", level: 85 },
+    { name: "Docker", level: 75 },
+    { name: "Kubernetes", level: 65 },
+    { name: "Ansible", level: 60 },
+    { name: "CI/CD", level: 70 },
   ];
 
   const projects = [
     {
-      title: "E-commerce Platform",
-      description: "A full-stack e-commerce platform with user authentication, product catalog, and payment processing.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      demoLink: "https://demo.project.com",
-      repoLink: "https://github.com/brahimwebdev/ecommerce",
+      title: "AirBnB Clone",
+      description: "A full-stack rental platform with RESTful API, secure authentication, and responsive UI. Complete clone of AirBnB functionality with user management and property listings.",
+      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+      technologies: ["Python", "Flask", "SQLAlchemy", "JWT", "HTML", "CSS", "JavaScript"],
+      demoLink: "https://demo.airbnbclone.com",
+      repoLink: "https://github.com/Bramsovic/airbnb-clone",
       casestudy: {
-        problem: "Need for a modern, responsive e-commerce solution",
-        solution: "Built a full-stack platform with seamless user experience",
-        results: "Increased conversion rate by 25% compared to previous version"
+        problem: "Create a complete rental platform with modern web technologies",
+        solution: "Built a full-stack application with secure API and responsive frontend",
+        results: "Functional rental platform with user authentication and property management"
       }
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management tool for teams to organize projects and track progress.",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
-      technologies: ["React", "Redux", "Express", "PostgreSQL"],
-      demoLink: "https://tasks.project.com",
-      repoLink: "https://github.com/brahimwebdev/taskmanager",
+      title: "French Driver (VTC App)",
+      description: "A ride-booking platform simulating real-world VTC services with client/driver roles, trip booking system, and secure API endpoints.",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000",
+      technologies: ["Flask", "PostgreSQL", "JWT", "HTML", "CSS", "JavaScript"],
+      demoLink: "https://demo.frenchdriver.com",
+      repoLink: "https://github.com/Bramsovic/french-driver",
       casestudy: {
-        problem: "Team coordination and task tracking inefficiencies",
-        solution: "Developed intuitive UI with real-time updates",
-        results: "50% reduction in project management overhead"
+        problem: "Develop a ride-booking platform with dual user roles",
+        solution: "Created secure API with role-based authentication and booking system",
+        results: "Fully functional VTC platform with real-time trip management"
       }
     },
     {
-      title: "Weather Dashboard",
-      description: "An interactive weather dashboard with forecast data and location search.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
-      technologies: ["JavaScript", "Weather API", "CSS Grid", "LocalStorage"],
-      demoLink: "https://weather.project.com",
-      repoLink: "https://github.com/brahimwebdev/weather",
+      title: "AgoraFlow (CRM)",
+      description: "A comprehensive CRM system designed for team coordination and customer relationship tracking with admin and user interfaces.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+      technologies: ["NestJS", "PostgreSQL", "JWT", "Vue.js"],
+      demoLink: "https://demo.agoraflow.com",
+      repoLink: "https://github.com/Bramsovic/agoraflow",
       casestudy: {
-        problem: "Accessing weather data in a user-friendly format",
-        solution: "Created intuitive dashboard with visual data representation",
-        results: "Used by over 1,000 daily users"
+        problem: "Need for efficient customer relationship management system",
+        solution: "Built scalable CRM with role-based access and modern UI",
+        results: "Streamlined customer management with 40% efficiency improvement"
+      }
+    },
+    {
+      title: "StockFlow Cloud",
+      description: "An inventory management system with CRUD operations, entry/exit tracking, role management, and React frontend for stock workflow optimization.",
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
+      technologies: ["Express.js", "PostgreSQL", "JWT", "React"],
+      demoLink: "https://demo.stockflow.com",
+      repoLink: "https://github.com/Bramsovic/stockflow-cloud",
+      casestudy: {
+        problem: "Inefficient manual stock management processes",
+        solution: "Developed automated inventory system with React frontend",
+        results: "Reduced inventory errors by 60% and improved tracking efficiency"
       }
     }
   ];
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Project Mentor at Holberton School",
+      name: "Sarah Martinez",
+      role: "Technical Mentor at Holberton School",
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-      text: "Brahim is an exceptionally talented developer with a keen eye for detail. His problem-solving skills and dedication to quality code make him stand out among his peers."
+      text: "Brahim's transition from customer service to development showcases his adaptability and dedication. His attention to detail and problem-solving skills make him a valuable team member."
     },
     {
-      name: "Thomas Laurent",
-      role: "Fellow Student",
+      name: "Alexandre Dubois",
+      role: "Fellow Developer",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D",
-      text: "Working with Brahim on team projects has always been a great experience. He's collaborative, shares knowledge generously, and consistently delivers high-quality work on time."
+      text: "Working with Brahim on projects has been excellent. His professional background brings a unique perspective to development, and his curiosity drives continuous learning."
     }
   ];
 
@@ -108,7 +136,6 @@ const Index = () => {
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you would send this data to your backend
     toast({
       title: "Message sent!",
       description: "Thanks for reaching out. I'll get back to you soon.",
@@ -127,8 +154,8 @@ const Index = () => {
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           <div className="mb-8 overflow-hidden rounded-full border-4 border-primary/20">
             <img
-              src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-              alt="Brahim"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D"
+              alt="Brahim Haddad"
               className="w-48 h-48 object-cover"
             />
           </div>
@@ -136,14 +163,14 @@ const Index = () => {
             Hello, I'm <span className="text-primary">Brahim</span>
           </h1>
           <h2 className="text-xl md:text-2xl text-muted-foreground mb-8">
-            Full-Stack Web Developer in Training
+            Junior Full-Stack Web Developer
           </h2>
           <div className="flex flex-wrap gap-4 justify-center">
             <Button onClick={() => scrollToSection("projects")} size="lg">
-              Discover my projects
+              See My Projects
             </Button>
             <Button onClick={() => scrollToSection("contact")} variant="outline" size="lg">
-              Contact me
+              Contact Me
             </Button>
           </div>
         </div>
@@ -166,14 +193,12 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <p className="text-lg mb-4">
-                Currently pursuing my Bac+2 at Holberton School in Lille, I'm passionate about creating efficient, 
-                user-friendly web applications. My journey into web development began with a curiosity about how 
-                digital products work, and evolved into a deep dive into both front-end and back-end technologies.
+                After 5 years in customer relations (notably at OVHcloud), I discovered a true passion for web development. 
+                This field combines creativity, logic, and continuous learning — everything that drives me to grow every day.
               </p>
               <p className="text-lg mb-6">
-                I bring attention to detail, a collaborative mindset, and an enthusiasm for learning new technologies 
-                to every project. Whether working independently or as part of a team, I strive to create solutions 
-                that are both technically sound and provide an excellent user experience.
+                I am currently in professional retraining for a Bac+3/4 in Full Stack Development and actively seeking an 
+                internship or apprenticeship starting September 2025.
               </p>
               <div className="flex flex-wrap gap-4 mt-6">
                 <div className="flex flex-col items-center p-4 border rounded-lg">
@@ -181,12 +206,20 @@ const Index = () => {
                   <p className="text-center text-muted-foreground">Always exploring new technologies</p>
                 </div>
                 <div className="flex flex-col items-center p-4 border rounded-lg">
-                  <div className="text-primary text-2xl font-bold">Precision</div>
+                  <div className="text-primary text-2xl font-bold">Detail</div>
                   <p className="text-center text-muted-foreground">Attention to every detail</p>
                 </div>
                 <div className="flex flex-col items-center p-4 border rounded-lg">
                   <div className="text-primary text-2xl font-bold">Teamwork</div>
                   <p className="text-center text-muted-foreground">Collaborative problem-solver</p>
+                </div>
+                <div className="flex flex-col items-center p-4 border rounded-lg">
+                  <div className="text-primary text-2xl font-bold">Autonomy</div>
+                  <p className="text-center text-muted-foreground">Self-directed and proactive</p>
+                </div>
+                <div className="flex flex-col items-center p-4 border rounded-lg">
+                  <div className="text-primary text-2xl font-bold">Adaptability</div>
+                  <p className="text-center text-muted-foreground">Quick to learn and adjust</p>
                 </div>
               </div>
             </div>
@@ -198,29 +231,29 @@ const Index = () => {
                     <div className="flex gap-4">
                       <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">1</div>
                       <div>
-                        <h4 className="font-medium">Discovery</h4>
-                        <p className="text-muted-foreground">First code experiments</p>
+                        <h4 className="font-medium">Customer Relations</h4>
+                        <p className="text-muted-foreground">5 years at OVHcloud & WeFix</p>
                       </div>
                     </div>
                     <div className="flex gap-4">
                       <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">2</div>
+                      <div>
+                        <h4 className="font-medium">Discovery</h4>
+                        <p className="text-muted-foreground">Passion for web development</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">3</div>
                       <div>
                         <h4 className="font-medium">Education</h4>
                         <p className="text-muted-foreground">Holberton School Lille</p>
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">3</div>
-                      <div>
-                        <h4 className="font-medium">Practice</h4>
-                        <p className="text-muted-foreground">Projects & Hackathons</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
                       <div className="min-w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground">4</div>
                       <div>
                         <h4 className="font-medium">Growth</h4>
-                        <p className="text-muted-foreground">Continuous learning</p>
+                        <p className="text-muted-foreground">Full-Stack Developer</p>
                       </div>
                     </div>
                   </div>
@@ -236,10 +269,11 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <SectionTitle>Technical Skills</SectionTitle>
           <Tabs defaultValue="frontend" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-8">
+            <TabsList className="grid grid-cols-4 mb-8">
               <TabsTrigger value="frontend">Front-End</TabsTrigger>
               <TabsTrigger value="backend">Back-End</TabsTrigger>
-              <TabsTrigger value="tools">Tools & Methods</TabsTrigger>
+              <TabsTrigger value="database">Database</TabsTrigger>
+              <TabsTrigger value="tools">Tools & DevOps</TabsTrigger>
             </TabsList>
             <TabsContent value="frontend" className="space-y-6">
               {frontEndSkills.map((skill) => (
@@ -254,6 +288,17 @@ const Index = () => {
             </TabsContent>
             <TabsContent value="backend" className="space-y-6">
               {backEndSkills.map((skill) => (
+                <div key={skill.name} className="space-y-2">
+                  <div className="flex justify-between">
+                    <Label>{skill.name}</Label>
+                    <span>{skill.level}%</span>
+                  </div>
+                  <Progress value={skill.level} className="h-2" />
+                </div>
+              ))}
+            </TabsContent>
+            <TabsContent value="database" className="space-y-6">
+              {databaseSkills.map((skill) => (
                 <div key={skill.name} className="space-y-2">
                   <div className="flex justify-between">
                     <Label>{skill.name}</Label>
@@ -282,7 +327,7 @@ const Index = () => {
       <section id="projects" className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <SectionTitle>Featured Projects</SectionTitle>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 mt-12">
             {projects.map((project) => (
               <ProjectCard key={project.title} project={project} />
             ))}
@@ -293,40 +338,43 @@ const Index = () => {
       {/* Experience & Training Section */}
       <section id="experience" className="py-20 px-4 bg-muted/30">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle>Experience & Training</SectionTitle>
+          <SectionTitle>Education & Experience</SectionTitle>
           <div className="space-y-8 mt-8">
             <Card>
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-2">Holberton School Lille</h3>
-                <p className="text-muted-foreground mb-4">2022 - Present</p>
+                <p className="text-muted-foreground mb-4">Oct 2024 - July 2025 (Bac+2) | Sept 2025 - Sept 2027 (Bac+4)</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>Full-Stack Web Development curriculum</li>
+                  <li>Web & Mobile Developer (Bac+2) - Current</li>
+                  <li>Full-Stack Developer (Bac+4) - Starting September 2025</li>
                   <li>Project-based learning with real-world applications</li>
-                  <li>Collaboration on team projects using Agile methodologies</li>
-                  <li>Outstanding achievement: Best Hackathon Project (April 2023)</li>
+                  <li>Collaboration on team projects using modern methodologies</li>
                 </ul>
               </CardContent>
             </Card>
             
             <Card>
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-2">Web Development Internship</h3>
-                <p className="text-muted-foreground mb-4">Summer 2023 - Digital Agency</p>
+                <h3 className="text-xl font-bold mb-2">OVHcloud - Customer Service</h3>
+                <p className="text-muted-foreground mb-4">2022 - 2024</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>Assisted in developing responsive websites for clients</li>
-                  <li>Implemented frontend designs using React components</li>
-                  <li>Collaborated with design and backend teams to deliver integrated solutions</li>
+                  <li>Resolved technical incidents via CRM & back-office systems</li>
+                  <li>Coordinated with development and infrastructure teams</li>
+                  <li>Ensured customer satisfaction through clear technical communication</li>
+                  <li>Developed problem-solving skills in high-pressure environments</li>
                 </ul>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-2">Additional Certifications</h3>
+                <h3 className="text-xl font-bold mb-2">WeFix - FNAC Darty - Store Manager</h3>
+                <p className="text-muted-foreground mb-4">2019 - 2022</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>JavaScript: From Fundamentals to Functional JS (Udemy)</li>
-                  <li>React - The Complete Guide (Academind)</li>
-                  <li>Introduction to Docker (FreeCodeCamp)</li>
+                  <li>Customer sales and technical advisory services</li>
+                  <li>Inventory and stock management systems</li>
+                  <li>Team onboarding and mentoring</li>
+                  <li>Process optimization and customer service excellence</li>
                 </ul>
               </CardContent>
             </Card>
@@ -337,21 +385,21 @@ const Index = () => {
       {/* Blog Section */}
       <section id="blog" className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle>Recent Articles</SectionTitle>
+          <SectionTitle>Technical Articles</SectionTitle>
           <div className="grid md:grid-cols-2 gap-6 mt-8">
             <Card className="overflow-hidden">
               <div className="h-48 overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6" 
-                  alt="JavaScript Tips" 
+                  alt="Python Flask Development" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-2">5 JavaScript Tips to Improve Your Code</h3>
-                <p className="text-muted-foreground mb-4">June 15, 2023</p>
-                <p className="mb-4">Key techniques I've learned to write cleaner, more efficient JavaScript code.</p>
-                <Button variant="outline" className="w-full">Read on Medium</Button>
+                <h3 className="text-xl font-bold mb-2">Building RESTful APIs with Flask</h3>
+                <p className="text-muted-foreground mb-4">Coming Soon</p>
+                <p className="mb-4">Deep dive into Flask development practices and API design patterns I've learned through my projects.</p>
+                <Button variant="outline" className="w-full" disabled>Article in Progress</Button>
               </CardContent>
             </Card>
 
@@ -359,15 +407,15 @@ const Index = () => {
               <div className="h-48 overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1531297484001-80022131f5a1" 
-                  alt="React Hooks" 
+                  alt="Vue.js Development" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-2">Understanding React Hooks: A Beginner's Guide</h3>
-                <p className="text-muted-foreground mb-4">August 3, 2023</p>
-                <p className="mb-4">My journey learning React Hooks and how they've changed the way I build components.</p>
-                <Button variant="outline" className="w-full">Read on Dev.to</Button>
+                <h3 className="text-xl font-bold mb-2">Vue.js vs React: My Development Journey</h3>
+                <p className="text-muted-foreground mb-4">Coming Soon</p>
+                <p className="mb-4">Comparing frameworks through real project experience and sharing insights from the transition.</p>
+                <Button variant="outline" className="w-full" disabled>Article in Progress</Button>
               </CardContent>
             </Card>
           </div>
@@ -433,22 +481,26 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
                   <div className="space-y-4">
-                    <a href="https://linkedin.com/" className="flex items-center gap-3 text-primary hover:underline">
+                    <a href="https://www.linkedin.com/in/brckb/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-primary hover:underline">
                       <Linkedin className="h-5 w-5" />
                       <span>LinkedIn</span>
                     </a>
-                    <a href="https://github.com/" className="flex items-center gap-3 text-primary hover:underline">
+                    <a href="https://github.com/Bramsovic" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-primary hover:underline">
                       <Github className="h-5 w-5" />
                       <span>GitHub</span>
                     </a>
-                    <a href="https://twitter.com/" className="flex items-center gap-3 text-primary hover:underline">
-                      <Twitter className="h-5 w-5" />
-                      <span>Twitter</span>
-                    </a>
-                    <a href="mailto:contact@example.com" className="flex items-center gap-3 text-primary hover:underline">
+                    <a href="mailto:haddad.corp@outlook.com" className="flex items-center gap-3 text-primary hover:underline">
                       <Mail className="h-5 w-5" />
-                      <span>contact@example.com</span>
+                      <span>haddad.corp@outlook.com</span>
                     </a>
+                    <a href="tel:+33751644722" className="flex items-center gap-3 text-primary hover:underline">
+                      <Phone className="h-5 w-5" />
+                      <span>07 51 64 47 22</span>
+                    </a>
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                      <MapPin className="h-5 w-5" />
+                      <span>Lille, France • Mobile nationwide • Permis B</span>
+                    </div>
                   </div>
                   <div className="mt-8">
                     <Button variant="outline" className="w-full flex items-center gap-2">
@@ -466,7 +518,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-8 px-4 border-t">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-muted-foreground">© 2023 Brahim - Full-Stack Web Developer</p>
+          <p className="text-muted-foreground">© 2024 Brahim Haddad - Junior Full-Stack Web Developer</p>
           <p className="text-sm text-muted-foreground mt-2">Made with React, TypeScript, and Tailwind CSS</p>
         </div>
       </footer>
