@@ -1,16 +1,15 @@
 
 import { useState } from "react";
-import { Download, Mail, Linkedin, Github, Phone, MapPin } from "lucide-react";
+import { Download, Mail, Linkedin, Github, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import SectionTitle from "@/components/SectionTitle";
 
 const ContactSection = () => {
-  const { toast } = useToast();
+  const recipientEmail = "contact@bhdd.fr";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,24 +23,30 @@ const ContactSection = () => {
     });
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    const subject = `Nouveau message portfolio - ${formData.name}`;
+    const body = [
+      `Nom: ${formData.name}`,
+      `E-mail: ${formData.email}`,
+      "",
+      "Message:",
+      formData.message,
+    ].join("\n");
+
+    const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
   };
 
   return (
-    <section id="contact" className="py-20 px-4">
+    <section id="contact" className="px-4 py-16 sm:py-20">
       <div className="max-w-4xl mx-auto">
-        <SectionTitle>Get In Touch</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-8 mt-8">
+        <SectionTitle>Contact</SectionTitle>
+        <div className="mt-8 grid gap-6 sm:gap-8 md:grid-cols-2">
           <div>
-            <form onSubmit={handleContactSubmit} className="space-y-6">
+            <form onSubmit={handleContactSubmit} className="space-y-5 sm:space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Nom</Label>
                 <Input 
                   id="name" 
                   name="name" 
@@ -51,7 +56,7 @@ const ContactSection = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">E-mail</Label>
                 <Input 
                   id="email" 
                   name="email" 
@@ -72,39 +77,35 @@ const ContactSection = () => {
                   required 
                 />
               </div>
-              <Button type="submit" className="w-full">Send Message</Button>
+              <Button type="submit" className="w-full">Ouvrir mon e-mail</Button>
             </form>
           </div>
           <div>
             <Card>
-              <CardContent className="pt-6">
-                <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
+              <CardContent className="pt-5 sm:pt-6">
+                <h3 className="mb-4 text-lg font-bold sm:text-xl">Restons en contact</h3>
                 <div className="space-y-4">
-                  <a href="https://www.linkedin.com/in/brckb/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-primary hover:underline">
+                  <a href="https://www.linkedin.com/in/brhcam" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-primary hover:underline">
                     <Linkedin className="h-5 w-5" />
                     <span>LinkedIn</span>
                   </a>
-                  <a href="https://github.com/Bramsovic" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-primary hover:underline">
+                  <a href="https://github.com/Bramsovic" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-primary hover:underline">
                     <Github className="h-5 w-5" />
                     <span>GitHub</span>
                   </a>
-                  <a href="mailto:haddad.corp@outlook.com" className="flex items-center gap-3 text-primary hover:underline">
+                  <a href="mailto:contact@bhdd.fr" className="flex items-start gap-3 text-primary hover:underline">
                     <Mail className="h-5 w-5" />
-                    <span>haddad.corp@outlook.com</span>
+                    <span className="break-all">contact@bhdd.fr</span>
                   </a>
-                  <a href="tel:+33751644722" className="flex items-center gap-3 text-primary hover:underline">
-                    <Phone className="h-5 w-5" />
-                    <span>07 51 64 47 22</span>
-                  </a>
-                  <div className="flex items-center gap-3 text-muted-foreground">
+                  <div className="flex items-start gap-3 text-muted-foreground">
                     <MapPin className="h-5 w-5" />
-                    <span>Lille, France • Mobile nationwide • Permis B</span>
+                    <span>Paris, 75019</span>
                   </div>
                 </div>
                 <div className="mt-8">
                   <Button variant="outline" className="w-full flex items-center gap-2">
                     <Download className="h-4 w-4" />
-                    Download CV
+                    Télécharger le CV
                   </Button>
                 </div>
               </CardContent>
