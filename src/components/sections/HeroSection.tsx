@@ -43,6 +43,21 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
 
     let isMounted = true;
     let revealTimeout: number | undefined;
+    let playFrame: number | undefined;
+    const retryTimeouts: number[] = [];
+
+    const syncVideoAttributes = () => {
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.preload = "auto";
+      video.setAttribute("autoplay", "");
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+    };
 
     const revealVideo = () => {
       if (isMounted) {
@@ -50,12 +65,47 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       }
     };
 
-    const tryPlay = () => {
-      revealVideo();
-      void video.play().catch(() => {
-        // Ignore autoplay rejections (browser policy) since the video is muted.
+    const tryPlay = async () => {
+      if (!isMounted || document.visibilityState === "hidden") {
+        return;
+      }
+
+      syncVideoAttributes();
+
+      try {
+        if (video.paused) {
+          await video.play();
+        }
+      } catch {
+        // Ignore autoplay rejections and retry on visibility changes or user gestures.
+      } finally {
         revealVideo();
-      });
+      }
+    };
+
+    const queuePlayAttempt = (delay = 0) => {
+      const run = () => {
+        playFrame = window.requestAnimationFrame(() => {
+          void tryPlay();
+        });
+      };
+
+      if (delay <= 0) {
+        run();
+        return;
+      }
+
+      retryTimeouts.push(window.setTimeout(run, delay));
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        queuePlayAttempt();
+      }
+    };
+
+    const handleUserGesture = () => {
+      queuePlayAttempt();
     };
 
     const handleError = () => {
@@ -67,31 +117,61 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       setIsVideoReady(true);
     };
 
+    syncVideoAttributes();
+
     if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
       revealVideo();
     }
 
+    if (video.readyState === HTMLMediaElement.HAVE_NOTHING) {
+      video.load();
+    }
+
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      tryPlay();
+      queuePlayAttempt();
     }
 
     video.addEventListener("loadedmetadata", revealVideo);
-    video.addEventListener("loadeddata", tryPlay);
-    video.addEventListener("canplay", tryPlay);
+    video.addEventListener("loadeddata", handleUserGesture);
+    video.addEventListener("canplay", handleUserGesture);
+    video.addEventListener("canplaythrough", handleUserGesture);
     video.addEventListener("playing", revealVideo);
     video.addEventListener("error", handleError);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pageshow", handleUserGesture);
+    window.addEventListener("focus", handleUserGesture);
+    document.addEventListener("touchend", handleUserGesture, { passive: true });
+    document.addEventListener("click", handleUserGesture);
+    document.addEventListener("keydown", handleUserGesture);
+
+    queuePlayAttempt();
+    queuePlayAttempt(250);
+    queuePlayAttempt(1000);
+    queuePlayAttempt(2500);
     revealTimeout = window.setTimeout(revealVideo, 1500);
 
     return () => {
       isMounted = false;
+      if (playFrame) {
+        window.cancelAnimationFrame(playFrame);
+      }
       if (revealTimeout) {
         window.clearTimeout(revealTimeout);
       }
+      retryTimeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
       video.removeEventListener("loadedmetadata", revealVideo);
-      video.removeEventListener("loadeddata", tryPlay);
-      video.removeEventListener("canplay", tryPlay);
+      video.removeEventListener("loadeddata", handleUserGesture);
+      video.removeEventListener("canplay", handleUserGesture);
+      video.removeEventListener("canplaythrough", handleUserGesture);
       video.removeEventListener("playing", revealVideo);
       video.removeEventListener("error", handleError);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pageshow", handleUserGesture);
+      window.removeEventListener("focus", handleUserGesture);
+      document.removeEventListener("touchend", handleUserGesture);
+      document.removeEventListener("click", handleUserGesture);
+      document.removeEventListener("keydown", handleUserGesture);
     };
   }, []);
 
