@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import heroPoster from "@/img/hero-poster.png";
 import heroVideo from "@/video/emoji-hero-white.mp4";
 
 interface HeroSectionProps {
@@ -14,7 +15,7 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
   const nameIndex = useMemo(() => fullText.indexOf(nameText), [fullText, nameText]);
   const [typedText, setTypedText] = useState("");
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [hasPlaybackStarted, setHasPlaybackStarted] = useState(false);
   const [hasVideoError, setHasVideoError] = useState(false);
 
   useEffect(() => {
@@ -42,7 +43,6 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
     }
 
     let isMounted = true;
-    let revealTimeout: number | undefined;
     let playFrame: number | undefined;
     const retryTimeouts: number[] = [];
 
@@ -59,9 +59,10 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       video.setAttribute("webkit-playsinline", "");
     };
 
-    const revealVideo = () => {
+    const markPlaybackStarted = () => {
       if (isMounted) {
-        setIsVideoReady(true);
+        setHasPlaybackStarted(true);
+        setHasVideoError(false);
       }
     };
 
@@ -76,10 +77,12 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
         if (video.paused) {
           await video.play();
         }
+
+        if (!video.paused) {
+          markPlaybackStarted();
+        }
       } catch {
         // Ignore autoplay rejections and retry on visibility changes or user gestures.
-      } finally {
-        revealVideo();
       }
     };
 
@@ -114,14 +117,9 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       }
 
       setHasVideoError(true);
-      setIsVideoReady(true);
     };
 
     syncVideoAttributes();
-
-    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
-      revealVideo();
-    }
 
     if (video.readyState === HTMLMediaElement.HAVE_NOTHING) {
       video.load();
@@ -131,11 +129,10 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       queuePlayAttempt();
     }
 
-    video.addEventListener("loadedmetadata", revealVideo);
     video.addEventListener("loadeddata", handleUserGesture);
     video.addEventListener("canplay", handleUserGesture);
     video.addEventListener("canplaythrough", handleUserGesture);
-    video.addEventListener("playing", revealVideo);
+    video.addEventListener("playing", markPlaybackStarted);
     video.addEventListener("error", handleError);
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -149,22 +146,17 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
     queuePlayAttempt(250);
     queuePlayAttempt(1000);
     queuePlayAttempt(2500);
-    revealTimeout = window.setTimeout(revealVideo, 1500);
 
     return () => {
       isMounted = false;
       if (playFrame) {
         window.cancelAnimationFrame(playFrame);
       }
-      if (revealTimeout) {
-        window.clearTimeout(revealTimeout);
-      }
       retryTimeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
-      video.removeEventListener("loadedmetadata", revealVideo);
       video.removeEventListener("loadeddata", handleUserGesture);
       video.removeEventListener("canplay", handleUserGesture);
       video.removeEventListener("canplaythrough", handleUserGesture);
-      video.removeEventListener("playing", revealVideo);
+      video.removeEventListener("playing", markPlaybackStarted);
       video.removeEventListener("error", handleError);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("pageshow", handleUserGesture);
@@ -185,31 +177,40 @@ const HeroSection = ({ onScrollToSection }: HeroSectionProps) => {
       className="relative flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center px-4 py-14 text-center sm:min-h-screen sm:py-16"
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <div className="mb-8 overflow-hidden rounded-full border-4 border-primary/20">
+        <div className="relative mb-8 h-32 w-32 overflow-hidden rounded-full border-4 border-primary/20 sm:h-40 sm:w-40 md:h-48 md:w-48">
           {hasVideoError ? (
-            <div className="grid h-32 w-32 place-items-center bg-primary/10 text-2xl font-bold text-primary sm:h-40 sm:w-40 sm:text-3xl md:h-48 md:w-48">
-              BH
-            </div>
-          ) : (
-            <video
-              ref={videoRef}
-              src={heroVideo}
-              className={`h-32 w-32 scale-110 transform-gpu object-cover object-[50%_40%] transition-opacity duration-300 sm:h-40 sm:w-40 md:h-48 md:w-48 ${
-                isVideoReady ? "opacity-100" : "opacity-0"
-              }`}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              onLoadedData={() => setIsVideoReady(true)}
-              onCanPlay={() => setIsVideoReady(true)}
-              onError={() => {
-                setHasVideoError(true);
-                setIsVideoReady(true);
-              }}
-              aria-label="Vidéo d'introduction"
+            <img
+              src={heroPoster}
+              alt="Portrait de Brahim"
+              className="h-full w-full scale-110 object-cover object-[50%_40%]"
             />
+          ) : (
+            <>
+              <img
+                src={heroPoster}
+                alt="Portrait de Brahim"
+                className={`absolute inset-0 h-full w-full scale-110 object-cover object-[50%_40%] transition-opacity duration-300 ${
+                  hasPlaybackStarted ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <video
+                ref={videoRef}
+                src={heroVideo}
+                poster={heroPoster}
+                className={`pointer-events-none absolute inset-0 h-full w-full scale-110 transform-gpu object-cover object-[50%_40%] transition-opacity duration-300 ${
+                  hasPlaybackStarted ? "opacity-100" : "opacity-0"
+                }`}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                onError={() => {
+                  setHasVideoError(true);
+                }}
+                aria-label="Vidéo d'introduction"
+              />
+            </>
           )}
         </div>
         <h1 className="mb-4 text-3xl font-bold leading-tight animate-fade-in sm:text-4xl md:text-6xl">
