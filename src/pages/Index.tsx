@@ -35,7 +35,7 @@ const Index = () => {
   }, [location.hash]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen w-full overflow-x-hidden bg-background">
       <NavigationBar />
       <HeroSection onScrollToSection={scrollToSection} />
       <AboutSection />

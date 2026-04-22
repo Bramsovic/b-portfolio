@@ -70,7 +70,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   };
 
   return (
-    <Card className="w-full h-full overflow-hidden transition-all hover:shadow-lg flex flex-col">
+    <Card className="min-w-0 w-full h-full overflow-hidden transition-all hover:shadow-lg flex flex-col">
       <div className="h-44 shrink-0 overflow-hidden bg-muted/30 sm:h-48">
         {hasGallery ? (
           <Carousel opts={{ loop: true }} className="h-full">

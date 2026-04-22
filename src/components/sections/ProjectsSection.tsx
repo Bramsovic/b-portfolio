@@ -89,7 +89,7 @@ const ProjectsSection = () => {
             <div className="relative mt-6">
               <div
                 ref={schoolScrollRef}
-                className={`flex items-stretch gap-4 overflow-x-auto overflow-y-visible px-1 pb-8 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-6 ${
+                className={`max-w-full overscroll-x-contain flex items-stretch gap-4 overflow-x-auto overflow-y-visible px-1 pb-8 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-6 ${
                   isSchoolScrollable ? "justify-start pr-4 sm:pr-6" : "justify-center"
                 }`}
               >
@@ -163,7 +163,7 @@ const ProjectsSection = () => {
                 </p>
                 <div
                   ref={novaTasksRef}
-                  className="mx-auto mt-5 flex w-full max-w-[980px] flex-nowrap justify-start gap-4 overflow-x-auto px-1 pb-2 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:mt-7 sm:justify-center sm:gap-5"
+                  className="mx-auto mt-5 flex w-full max-w-full flex-nowrap justify-start gap-4 overflow-x-auto overscroll-x-contain px-1 pb-2 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:mt-7 sm:max-w-[980px] sm:justify-center sm:gap-5"
                 >
                   <div
                     className={`group relative flex h-[220px] w-[78vw] max-w-[220px] shrink-0 flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 text-left shadow-sm transition-[transform,opacity,box-shadow] duration-700 ease-out hover:shadow-md will-change-transform will-change-opacity motion-reduce:transition-none motion-reduce:transform-none sm:h-[230px] sm:w-[220px] ${
@@ -242,7 +242,9 @@ const ProjectsSection = () => {
             </div>
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {freelanceProjects.map((project) => (
-                <ProjectCard key={project.title} project={project} />
+                <div key={project.title} className="min-w-0">
+                  <ProjectCard project={project} />
+                </div>
               ))}
             </div>
           </div>
